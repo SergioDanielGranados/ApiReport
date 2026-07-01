@@ -2,6 +2,7 @@ package org.report.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.report.busisness.ProducerService;
+import org.report.dto.OrderSearchParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +44,12 @@ public class DataBaseTestController {
     return Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT));
   }
 
+
+  @PostMapping("/order")
+  public  Mono<ResponseEntity<Void>>createUser(@Validated @RequestBody OrderSearchParams params) {
+    log.info("Inicia Creacion Reporte Orders {} ", params);
+    producerService.sendReportOrder(params);
+    return Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT));
+  }
 
 }

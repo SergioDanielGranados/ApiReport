@@ -2,10 +2,13 @@ package org.report.busisness;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.report.RabbitMQ.OrderMqConfig;
+import org.report.dto.OrderSearchParams;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.report.RabbitMQ.ItemMqConfig;
+import tools.jackson.databind.ObjectMapper;
 
 @Slf4j
 @Service
@@ -13,10 +16,12 @@ public class ProducerService {
 
 
   private RabbitTemplate rabbitTemplate;
+  private final ObjectMapper ojectMapper ;
 
   @Autowired
-  public ProducerService(RabbitTemplate rabbitTemplate) {
+  public ProducerService(RabbitTemplate rabbitTemplate, ObjectMapper ojectMapper) {
     this.rabbitTemplate = rabbitTemplate;
+    this.ojectMapper = ojectMapper;
   }
 
   public void sendReportItem(String message) {
@@ -26,6 +31,19 @@ public class ProducerService {
         message
     );
     log.info("Mensaje Enviado Report Item  {} ",message);
+  }
+
+
+  public void sendReportOrder(OrderSearchParams orderSearchParams) {
+
+    String params = ojectMapper.writeValueAsString(orderSearchParams);
+
+    rabbitTemplate.convertAndSend(
+        OrderMqConfig.ORDER_EXCHANGE_NAME,
+        OrderMqConfig.ORDER_ROUTING_KEY,
+        params
+    );
+    log.info("Mensaje Enviado Report Order  {} ",params);
   }
 
 }
