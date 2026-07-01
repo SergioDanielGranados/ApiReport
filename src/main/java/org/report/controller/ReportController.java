@@ -2,6 +2,7 @@ package org.report.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.report.busisness.ProducerService;
+import org.report.dto.ItemSearch;
 import org.report.dto.OrderSearchParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @RestController
 @RequestMapping("/report")
-public class DataBaseTestController {
+public class ReportController {
 
   private final ProducerService producerService;
 
@@ -33,12 +34,12 @@ public class DataBaseTestController {
    * @return La suma de ambos números.
    */
   @Autowired
-  private DataBaseTestController(ProducerService producerService) {
+  private ReportController(ProducerService producerService) {
     this.producerService = producerService;
   }
 
   @PostMapping("/item")
-  public  Mono<ResponseEntity<Void>>createUser(@Validated @RequestBody String s) {
+  public  Mono<ResponseEntity<Void>>reportItem(@Validated @RequestBody ItemSearch s) {
     log.info("Inicia Creacion Reporte Item {} ", s);
     producerService.sendReportItem(s);
     return Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT));
@@ -46,9 +47,16 @@ public class DataBaseTestController {
 
 
   @PostMapping("/order")
-  public  Mono<ResponseEntity<Void>>createUser(@Validated @RequestBody OrderSearchParams params) {
+  public  Mono<ResponseEntity<Void>> reporOrder(@Validated @RequestBody OrderSearchParams params) {
     log.info("Inicia Creacion Reporte Orders {} ", params);
     producerService.sendReportOrder(params);
+    return Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT));
+  }
+
+  @PostMapping("/users")
+  public  Mono<ResponseEntity<Void>>reportUSer(@Validated @RequestBody String s) {
+    log.info("Inicia Creacion Reporte Users {} ", s);
+    producerService.sendReporUsers(s);
     return Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT));
   }
 

@@ -1,9 +1,15 @@
-# API USER CRUD
-Api prueba CRUD Clientes
+# API REPORT
+Api para generacion de reportes 
 
 ## Descripcion
 
-EL CRUD  Create , get User By Id , delete y Update para todo el proceso de registro o modificacion de algun usuario
+Reportes como:
+
+●Usuarios Pedidos
+
+●Items por Nombre del item 
+
+●Ordenes por orderRef , orderStatus , storeName
 ## Getting Started
 
 ### Dependencias
@@ -26,48 +32,30 @@ InteliJ Cumunitty
 
 
 ### Operaciones
-
-* GET http://localhost:8082/user/{id}
-  * No body
-```
-   http://localhost:8082/user/1235897
-
-```
-
-* POST http://localhost:8082/create
+*Usuarios Pedidos
+  * POST http://localhost:8085/report/users
     * Body
 ```
+   ReportePedidosUsuarios
+
+```
+* Items por Nombre del item
+  * POST http://localhost:8085/report/item
+      * Body
+```
 {
-    "userId": "1235897",
-    "name": "dan",
-    "aPaterno": "g",
-    "aMaterno": "a",
-    "email": "danielsg@g.com",
-    "orders": [
-        "23",
-        "44",
-        "888"
-    ]
+    "search": "levi"
 }
 ```
 
-* PUT http://localhost:8082/userup
+* POST http://localhost:8085/report/order
     * Body
 ```
-{
-        "userId": "1235897",
-        "name": "dano",
-        "aPaterno": "g",
-        "aMaterno": "a",
-        "email": "laboa@gmail.com",
-        "orders": ["23","44","1234564532"]
+    {
+    "orderRef": "",
+    "orderStatus": "",
+    "storeName": "L  SANTA FE"
     }
-```
-
-* Delete http://localhost:8082/userdel
-    * Body
-```
-1235897
 ```
 
 ## Authors
