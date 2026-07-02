@@ -2,6 +2,7 @@ package org.report.busisness;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.report.RabbitMQ.ItemMqConfig;
 import org.report.RabbitMQ.OrderMqConfig;
 import org.report.RabbitMQ.ReportUserMqConfig;
 import org.report.dto.ItemSearch;
@@ -9,9 +10,13 @@ import org.report.dto.OrderSearchParams;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.report.RabbitMQ.ItemMqConfig;
 import tools.jackson.databind.ObjectMapper;
-
+/**
+ * Clase de ejemplo para demostración de Javadoc.
+ *
+ * @author Tu Nombre
+ * @version 1.0
+ */
 @Slf4j
 @Service
 public class ProducerService {
@@ -26,6 +31,11 @@ public class ProducerService {
     this.ojectMapper = ojectMapper;
   }
 
+  /**
+   * Envio para Repórte Item.
+   *
+   * @param message Mensaje.
+   */
   public void sendReportItem(ItemSearch message) {
     String params = ojectMapper.writeValueAsString(message);
     rabbitTemplate.convertAndSend(
@@ -36,7 +46,11 @@ public class ProducerService {
     log.info("Mensaje Enviado Report Item  {} ",message);
   }
 
-
+  /**
+   * Reporte Orders.
+   *
+   * @param orderSearchParams Parametros de busqueda para Reporte Orders.
+   */
   public void sendReportOrder(OrderSearchParams orderSearchParams) {
 
     String params = ojectMapper.writeValueAsString(orderSearchParams);
@@ -49,7 +63,11 @@ public class ProducerService {
     log.info("Mensaje Enviado Report Order  {} ",params);
   }
 
-
+  /**
+   * Reporte Usuarios Orders.
+   *
+   * @param message Parametros de busqueda Usuarios.
+   */
   public void sendReporUsers(String message) {
     rabbitTemplate.convertAndSend(
         ReportUserMqConfig.USER_EXCHANGE_NAME,

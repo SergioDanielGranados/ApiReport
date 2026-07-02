@@ -6,7 +6,12 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+/**
+ * ItemMqConfig
+ *
+ * @author SDGA
+ * @version 1.0
+ */
 @Configuration
 public class ItemMqConfig {
 
@@ -14,16 +19,31 @@ public class ItemMqConfig {
   public static final String ITEM_QUEUE_NAME = "item-report-queue";
   public static final String ITEM_ROUTING_KEY = "item-report-routing-key";
 
+  /**
+   * itemQueue
+   *
+   * @return Queue
+   */
   @Bean
   public Queue itemQueue() {
     return new Queue(ITEM_QUEUE_NAME, true);
   }
 
+  /**
+   * TopicExchange
+   *
+   * @return TopicExchange
+   */
   @Bean
   public TopicExchange itemExchange() {
     return new TopicExchange(ITEM_EXCHANGE_NAME);
   }
 
+  /**
+   * ItemBinding
+   *
+   * @return Binding
+   */
   @Bean
   public Binding itemBinding() {
     return BindingBuilder
