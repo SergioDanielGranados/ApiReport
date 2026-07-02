@@ -1,3 +1,6 @@
+/**
+ *  Prueba liverpoool  ejecutada pr Sergio Granados
+ */
 package org.report.RabbitMQ;
 
 import org.springframework.amqp.core.Binding;
